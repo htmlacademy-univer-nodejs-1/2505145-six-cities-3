@@ -25,28 +25,70 @@ export class TSVFileReader implements FileReader {
     if (!this.rawData)
       throw new Error('File was not read');
 
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim().length > 0)
-      .map((line) => line.split('\t'))
-      .map(([name, description, datePublished, city, previewImagePath, photosPaths, isPremium, isFavorite, rating, housingType, numberRooms, numberGuests, rentPrice, facilities, authorName, authorEmail, autorImagePath, autorType, numberComments, coordinates]) => ({
-        name,
-        description,
-        datePublished: new Date(datePublished),
-        city: city as City,
-        previewImagePath,
-        photosPaths: photosPaths.split(';'),
-        isPremium: isPremium === 'true',
-        isFavorite: isFavorite === 'true',
-        rating: parseFloat(rating),
-        housingType: housingType as HousingType,
-        numberRooms: parseInt(numberRooms),
-        numberGuests: parseInt(numberGuests),
-        rentPrice: parseInt(rentPrice),
-        facilities: facilities.split(';').map((facility) => facility as Facilities),
-        author: {name: authorName, email: authorEmail, avatarImagePath: autorImagePath, userType: autorType as UserType} as User,
-        numberComments: parseInt(numberComments),
-        coordinates
-      }));
+    const resultData: Offer[] = [];
+    let currentRow: string[] = [];
+    let currentData: string[] = [];
+
+    for (let char of this.rawData) {
+      if (char == '\t' || char == '\n') {
+        currentRow.push(currentData.join(''));
+        currentData = [];
+      } else
+        currentData.push(char);
+
+      if (char == '\n') {
+        const [
+          name,
+          description,
+          datePublished,
+          city,
+          previewImagePath,
+          photosPaths,
+          isPremium,
+          isFavorite,
+          rating,
+          housingType,
+          numberRooms,
+          numberGuests,
+          rentPrice,
+          facilities,
+          authorName,
+          authorEmail,
+          autorImagePath,
+          autorType,
+          numberComments,
+          coordinates
+        ] = currentRow;
+
+        resultData.push({
+          name,
+          description,
+          datePublished: new Date(datePublished),
+          city: city as City,
+          previewImagePath,
+          photosPaths: photosPaths.split(';'),
+          isPremium: isPremium === 'true',
+          isFavorite: isFavorite === 'true',
+          rating: parseFloat(rating),
+          housingType: housingType as HousingType,
+          numberRooms: parseInt(numberRooms),
+          numberGuests: parseInt(numberGuests),
+          rentPrice: parseInt(rentPrice),
+          facilities: facilities.split(';').map((facility) => facility as Facilities),
+          author: {
+            name: authorName,
+            email: authorEmail,
+            avatarImagePath: autorImagePath,
+            userType: autorType as UserType
+          } as User,
+          numberComments: parseInt(numberComments),
+          coordinates
+        } as Offer);
+
+        currentRow = [];
+      }
+    }
+
+    return resultData;
   }
 }
