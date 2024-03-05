@@ -6,7 +6,7 @@ export class HelpCommand implements Command {
     console.info(chalk.greenBright(`
       Программа для подготовки данных для REST API сервера.
       Пример:
-        cli.js ${chalk.redBright(`--<command>`)} ${chalk.yellowBright(`[--argument]`)}
+        cli.js ${chalk.redBright('--<command>')} ${chalk.yellowBright('[--argument]')}
 
       Команды:
         ${chalk.redBright('--version')}:                       # Номер версии

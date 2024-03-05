@@ -9,8 +9,9 @@ export class CommandParser {
       if (argument.startsWith('--')) {
         currentCommand = argument;
         parsedCommand[argument] = [];
-      } else if (currentCommand && argument)
+      } else if (currentCommand && argument) {
         parsedCommand[currentCommand].push(argument);
+      }
     }
 
     return parsedCommand;

@@ -11,14 +11,15 @@ export class ImportCommand implements Command {
     const fileReader = new TSVFileReader(filePath.trim());
 
     try {
-      fileReader.read()
-      console.log(fileReader.toArray())
+      fileReader.read();
+      console.log(fileReader.toArray());
     } catch (error) {
-      if (!(error instanceof Error))
-        throw error
+      if (!(error instanceof Error)) {
+        throw error;
+      }
 
-      console.error(`Can't import data from file: ${filePath}`)
-      console.error(`Details: ${error.message}`)
+      console.error(`Can't import data from file: ${filePath}`);
+      console.error(`Details: ${error.message}`);
     }
   }
 }

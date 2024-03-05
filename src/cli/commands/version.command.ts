@@ -1,5 +1,5 @@
 import { Command } from './commands.interface';
-import packageJSON from '../../../package.json' assert { type: 'json' };
+import { version } from '../../../package.json';
 
 export class VersionCommand implements Command {
   public getName(): string {
@@ -7,9 +7,9 @@ export class VersionCommand implements Command {
   }
 
   public async execute(...parameters: string[]): Promise<void> {
-    if (!packageJSON)
+    if (!version)
       throw new Error('Failed to access package.json.');
 
-    console.log(packageJSON.version);
+    console.log(version);
   }
 }

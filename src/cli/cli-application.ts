@@ -8,13 +8,13 @@ export class CLIApplication {
 
   constructor(
     private readonly defaultCommand: string = '--help'
-  ) {
-  }
+  ) {}
 
   public registerCommands(commandList: Command[]): void {
     commandList.map((command) => {
-      if (Object.hasOwn(this.Commands, command.getName()))
+      if (Object.hasOwn(this.Commands, command.getName())) {
         throw new Error(`Command ${command.getName()} is already registered.`);
+      }
 
       this.Commands[command.getName()] = command;
     });
@@ -25,8 +25,9 @@ export class CLIApplication {
   }
 
   public getDefaultCommand(): Command {
-    if (!this.Commands[this.defaultCommand])
+    if (!this.Commands[this.defaultCommand]) {
       throw new Error(`The default command ${this.defaultCommand} is not registered`);
+    }
 
     return this.Commands[this.defaultCommand];
   }
