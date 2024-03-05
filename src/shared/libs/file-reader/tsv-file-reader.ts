@@ -16,27 +16,30 @@ export class TSVFileReader implements FileReader {
     } catch (error: unknown) {
       console.error(`Filed to read data from ${this.filePath}`);
 
-      if (error instanceof Error)
+      if (error instanceof Error) {
         console.error(error.message);
+      }
     }
   }
 
   public toArray(): Offer[] {
-    if (!this.rawData)
+    if (!this.rawData) {
       throw new Error('File was not read');
+    }
 
     const resultData: Offer[] = [];
     let currentRow: string[] = [];
     let currentData: string[] = [];
 
-    for (let char of this.rawData) {
-      if (char == '\t' || char == '\n') {
+    for (const char of this.rawData) {
+      if (char === '\t' || char === '\n') {
         currentRow.push(currentData.join(''));
         currentData = [];
-      } else
+      } else {
         currentData.push(char);
+      }
 
-      if (char == '\n') {
+      if (char === '\n') {
         const [
           name,
           description,
@@ -71,9 +74,9 @@ export class TSVFileReader implements FileReader {
           isFavorite: isFavorite === 'true',
           rating: parseFloat(rating),
           housingType: housingType as HousingType,
-          numberRooms: parseInt(numberRooms),
-          numberGuests: parseInt(numberGuests),
-          rentPrice: parseInt(rentPrice),
+          numberRooms: parseInt(numberRooms, 10),
+          numberGuests: parseInt(numberGuests, 10),
+          rentPrice: parseInt(rentPrice, 10),
           facilities: facilities.split(';').map((facility) => facility as Facilities),
           author: {
             name: authorName,
@@ -81,7 +84,7 @@ export class TSVFileReader implements FileReader {
             avatarImagePath: autorImagePath,
             userType: autorType as UserType
           } as User,
-          numberComments: parseInt(numberComments),
+          numberComments: parseInt(numberComments, 10),
           coordinates
         } as Offer);
 

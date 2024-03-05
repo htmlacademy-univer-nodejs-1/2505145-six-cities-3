@@ -7,8 +7,9 @@ export class VersionCommand implements Command {
   }
 
   public async execute(...parameters: string[]): Promise<void> {
-    if (!version)
+    if (!version) {
       throw new Error('Failed to access package.json.');
+    }
 
     console.log(version);
   }
