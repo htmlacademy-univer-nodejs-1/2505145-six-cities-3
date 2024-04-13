@@ -1,97 +1,36 @@
 import { FileReader } from './file-reader.interface.js';
-import { readFileSync } from 'node:fs';
-import { City, Facilities, HousingType, Offer, User, UserType } from '../../types/index.js';
+import EventEmitter from 'node:events';
+import { createReadStream } from 'node:fs';
 
-export class TSVFileReader implements FileReader {
-  private rawData = '';
+const CHUNK_SIZE = 16384;
 
-  constructor(
-    private readonly filePath: string
-  ) {
+export class TSVFileReader extends EventEmitter implements FileReader {
+  constructor(private readonly filePath: string) {
+    super();
   }
 
-  public read(): void {
-    try {
-      this.rawData = readFileSync(this.filePath, 'utf-8');
-    } catch (error: unknown) {
-      console.error(`Filed to read data from ${this.filePath}`);
+  public async read(): Promise<void> {
+    const readStream = createReadStream(this.filePath, {
+      highWaterMark: CHUNK_SIZE,
+      encoding: 'utf-8'
+    });
 
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    }
-  }
+    let remainingData = '';
+    let nextLinePosition = -1;
+    let importedRowCount = 0;
 
-  public toArray(): Offer[] {
-    if (!this.rawData) {
-      throw new Error('File was not read');
-    }
+    for await (const chunk of readStream) {
+      remainingData += chunk.toString();
 
-    const resultData: Offer[] = [];
-    let currentRow: string[] = [];
-    let currentData: string[] = [];
+      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+        const completeRow = remainingData.slice(0, nextLinePosition + 1);
+        remainingData = remainingData.slice(++nextLinePosition);
+        importedRowCount++;
 
-    for (const char of this.rawData) {
-      if (char === '\t' || char === '\n') {
-        currentRow.push(currentData.join(''));
-        currentData = [];
-      } else {
-        currentData.push(char);
-      }
-
-      if (char === '\n') {
-        const [
-          name,
-          description,
-          datePublished,
-          city,
-          previewImagePath,
-          photosPaths,
-          isPremium,
-          isFavorite,
-          rating,
-          housingType,
-          numberRooms,
-          numberGuests,
-          rentPrice,
-          facilities,
-          authorName,
-          authorEmail,
-          autorImagePath,
-          autorType,
-          numberComments,
-          coordinates
-        ] = currentRow;
-
-        resultData.push({
-          name,
-          description,
-          datePublished: new Date(datePublished),
-          city: city as City,
-          previewImagePath,
-          photosPaths: photosPaths.split(';'),
-          isPremium: isPremium === 'true',
-          isFavorite: isFavorite === 'true',
-          rating: parseFloat(rating),
-          housingType: housingType as HousingType,
-          numberRooms: parseInt(numberRooms, 10),
-          numberGuests: parseInt(numberGuests, 10),
-          rentPrice: parseInt(rentPrice, 10),
-          facilities: facilities.split(';').map((facility) => facility as Facilities),
-          author: {
-            name: authorName,
-            email: authorEmail,
-            avatarImagePath: autorImagePath,
-            userType: autorType as UserType
-          } as User,
-          numberComments: parseInt(numberComments, 10),
-          coordinates
-        } as Offer);
-
-        currentRow = [];
+        this.emit('line', completeRow);
       }
     }
 
-    return resultData;
+    this.emit('end', importedRowCount);
   }
 }

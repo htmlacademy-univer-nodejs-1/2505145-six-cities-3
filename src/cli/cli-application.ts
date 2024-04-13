@@ -21,7 +21,7 @@ export class CLIApplication {
   }
 
   public getCommand(commandName: string): Command {
-    return this.Commands[commandName] ?? this.getDefaultCommand;
+    return this.Commands[commandName] ?? this.getDefaultCommand();
   }
 
   public getDefaultCommand(): Command {

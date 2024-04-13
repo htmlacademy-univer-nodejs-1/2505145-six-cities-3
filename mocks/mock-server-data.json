@@ -1,0 +1,107 @@
+{
+  "api": {
+    "titles": [
+      "1-комн. квартира, 32 м²",
+      "Дом, 200 м² в ЖК «Лаки»",
+      "2-комн. апартаменты, 82,4 м² в ЖК «ЛЮМИН»",
+      "1-комн. квартира, 32,8 м² в ЖК «Роттердам»",
+      "2-комн. квартира, 78 м² в ЖК «Садовые кварталы»",
+      "2-комн. апартаменты, 62,3 м² в ЖК «Веспер Тверская»"
+    ],
+    "descriptions": [
+      "Уникальный формат апартаментов - Кухня-гостиная  и спальная комната изолированы друг от друга, что создает больше возможностей для отдыха и  работы. Светлый интерьер создает настраивает на отдых, продуманные зоны  хранения позволяют максимально эффективно использовать площадь апартамента.",
+      "Стильный кирпичный коттедж со СПА комплексом. Камин, двухуровневый гараж с блоком для персонала. Три спальни, отдельно стоящий спа комплекс с сауной, купелью, кухней и террасой для отдыха. Все полностью меблировано и готово для проживания. Ухоженный участок за которым следит садовник.",
+      "Апартамент общей площадью 82,4 кв. метров c финишной отделкой на 5 этаже клубного дома Lumin House. Уникальный архитектурный образ восьмиэтажного здания сочетает элементы из прозрачного и матового стекла.",
+      "Вид на набережную и реку. Квартира с отделкой под ключ и светильниками. Отделка КЛАССИКА СВЕТЛЫЙ БИЗНЕС.",
+      "Новый эксклюзивный ремонт по индивидуальному дизайн-проекту. В отделке  использованы только импортные премиальные материалы. В квартире полностью укомплектована кухня, прихожая и санузлы, частично укомплектована гостиная. Бытовая техника Miele, холодильник и морозильная камера фирмы Gaggenau.",
+      "Продаются апартаменты с сервисом 5* отеля на 8-м этаже общей площадью 62,3 метра с 1-й спальней и кухней-гостиной. Из апартаментов открываются панорамные виды на исторический центр города.Апартаменты предлагаются с высококачественной отделкой с использованием мрамора и дерева ценных пород, натурального камня и текстиля, включающей оборудованные кухни и ванные комнаты."
+    ],
+    "cities": [
+      "Paris",
+      "Amsterdam",
+      "Brussels",
+      "Dusseldorf",
+      "Cologne",
+      "Hamburg"
+    ],
+    "previewPhotos": [
+      "apartment1-preview-photo.jpg",
+      "house-preview-photo.jpg",
+      "apartment2-preview-photo.jpg",
+      "apartment3-preview-photo.jpg",
+      "apartment4-preview-photo.jpg",
+      "apartment5-preview-photo.jpg"
+    ],
+    "photos": [
+      "apartment1-photo-1.jpg",
+      "apartment1-photo-2.jpg",
+      "apartment1-photo-3.jpg",
+      "house-photo-1.jpg",
+      "house-photo-2.jpg",
+      "house-photo-3.jpg",
+      "apartment2-photo-1.jpg",
+      "apartment2-photo-2.jpg",
+      "apartment2-photo-3.jpg",
+      "apartment3-photo-1.jpg",
+      "apartment3-photo-2.jpg",
+      "apartment3-photo-3.jpg",
+      "apartment4-photo-1.jpg",
+      "apartment4-photo-2.jpg",
+      "apartment4-photo-3.jpg",
+      "apartment5-photo-1.jpg",
+      "apartment5-photo-2.jpg",
+      "apartment5-photo-3.jpg"
+    ],
+    "types": [
+      "apartament",
+      "house",
+      "room",
+      "hotel"
+    ],
+    "facilities": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "authorNames": [
+      "Peter Conner",
+      "Brodie Wiggins",
+      "Tammy Smith",
+      "Caroline Lynch",
+      "Dianne Erickson",
+      "Cindy Henderson"
+    ],
+    "authorEmails": [
+      "PeterConner123@mail.com",
+      "BrodieWiggins2009@mail.com",
+      "TammySmith352@mail.com",
+      "CarolineLynch0235@mail.com",
+      "DianneErickson508@mail.com",
+      "CindyHenderson404@mail.com"
+    ],
+    "authorAvatars": [
+      "peter-conner-avatar.jpg",
+      "brodie-wiggins-avatar.jpg",
+      "tammy-smith-avatar.jpg",
+      "caroline-lynch-avatar.jpg",
+      "dianne-erickson-avatar.jpg",
+      "cindy-henderson-avatar.jpg"
+    ],
+    "authorTypes": [
+      "default",
+      "pro"
+    ],
+    "coordinates": [
+      "latitude: 48.85661, longitude: 2.351499",
+      "latitude: 52.370216, longitude: 4.895168",
+      "latitude: 50.846557, longitude: 4.351697",
+      "latitude: 51.225402, longitude: 6.776314",
+      "latitude: 50.938361, longitude: 6.959974",
+      "latitude: 53.550341, longitude: 10.000654"
+    ]
+  }
+}
