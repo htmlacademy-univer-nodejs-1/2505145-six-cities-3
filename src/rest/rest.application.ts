@@ -4,7 +4,6 @@ import { inject, injectable } from 'inversify';
 import { Component } from '../shared/types/index.js';
 import { DatabaseClient } from '../shared/libs/database-client/index.js';
 import { getMongoUri } from '../shared/helpers/index.js';
-import { UserModel } from '../shared/modules/user/index.js';
 
 @injectable()
 export class RestApplication {
