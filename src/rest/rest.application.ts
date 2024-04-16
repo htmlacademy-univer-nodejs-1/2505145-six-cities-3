@@ -31,6 +31,10 @@ export class RestApplication {
     // console.log(user);
 
     this.logger.info('Init database completed');
+
+
+    // const result = await this.offerService.findById('661c48c9b2380ab5854565f1')
+    // console.log(result)
   }
 
   private async initDb() {
