@@ -1,0 +1,42 @@
+# Оферы
+## Получить список предложений
+GET http://localhost:5000/offers HTTP/1.1
+Content-Type: application/json
+
+###
+## Добавить новое предложение
+POST http://localhost:5000/offers HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Дом супер большой",
+  "description": "Дом2.Дом2.Дом2.Дом2.Дом2.Дом2.",
+  "datePublished": "2022-04-01T01:01:01Z",
+  "city": "Amsterdam",
+  "previewImagePath": "house-preview-photo123.jpg",
+  "photosPaths": [
+    "house-photo-13.jpg",
+    "house-photo-23.jpg",
+    "house-photo-33.jpg",
+    "house-photo-43.jpg",
+    "house-photo-53.jpg",
+    "house-photo-63.jpg"
+  ],
+  "isPremium": false,
+  "isFavorite": true,
+  "rating": 1.2,
+  "housingType": "house",
+  "numberRooms": 2,
+  "numberGuests": 8,
+  "rentPrice": 12000,
+  "facilities": [
+    "Air conditioning",
+    "Laptop friendly workspace",
+    "Washer",
+    "Fridge"
+  ],
+  "userId": "665072ab6fc4d997cd109f99",
+  "numberComments": 3,
+  "coordinates": "latitude: 52.370216, longitude: 4.895168"
+}
+###
