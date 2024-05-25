@@ -66,7 +66,7 @@ export class ImportCommand implements Command {
     }, this.salt);
 
     await this.offerService.create({
-      name: user.name,
+      name: offer.name,
       description: offer.description,
       datePublished: offer.datePublished,
       city: offer.city,
