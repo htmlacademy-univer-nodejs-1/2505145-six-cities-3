@@ -1,7 +1,6 @@
-import { Expose } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { City, Facilities, HousingType } from '../../../types/index.js';
-import { Ref } from '@typegoose/typegoose';
-import { UserEntity } from '../../user/index.js';
+import { UserRdo } from '../../user/index.js';
 
 export class OfferRdo {
   @Expose()
@@ -49,8 +48,9 @@ export class OfferRdo {
   @Expose()
   public facilities: Facilities[];
 
-  @Expose()
-  public userId: Ref<UserEntity>;
+  @Expose({name: 'userId'})
+  @Type(() => UserRdo)
+  public user: UserRdo;
 
   @Expose()
   public numberComments: number;

@@ -2,7 +2,7 @@ import { Command } from './commands.interface';
 import chalk from 'chalk';
 
 export class HelpCommand implements Command {
-  public async execute(...parameters: string[]): Promise<void> {
+  public async execute(..._parameters: string[]): Promise<void> {
     console.info(chalk.greenBright(`
       Программа для подготовки данных для REST API сервера.
       Пример:
