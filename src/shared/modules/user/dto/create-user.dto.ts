@@ -13,10 +13,10 @@ export class CreateUserDto {
   @IsOptional()
   public avatarImagePath: string;
 
-  @IsString({ message: CreateUserMessages.password.invalidFormat })
-  @Length(6, 12, { message: CreateUserMessages.password.lengthField })
+  @IsEnum(UserType, { message: CreateUserMessages.userType.invalidFormat })
   public userType: UserType;
 
-  @IsEnum(UserType, { message: CreateUserMessages.userType.invalidFormat })
+  @IsString({ message: CreateUserMessages.password.invalidFormat })
+  @Length(6, 12, { message: CreateUserMessages.password.lengthField })
   public password: string;
 }

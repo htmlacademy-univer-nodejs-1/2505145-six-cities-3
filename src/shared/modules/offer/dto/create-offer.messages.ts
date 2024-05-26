@@ -53,7 +53,4 @@ export const CreateOfferValidationMessage = {
     invalidElementFormat:
       'Element must be one of Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge',
   },
-  userId: {
-    invalidId: 'userId field must be a valid id',
-  },
 } as const;

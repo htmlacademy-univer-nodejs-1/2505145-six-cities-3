@@ -41,3 +41,12 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ##
+
+
+##
+###
+
+## Проверить токен пользователя
+GET http://localhost:5000/users/login HTTP/1.1
+
+###
