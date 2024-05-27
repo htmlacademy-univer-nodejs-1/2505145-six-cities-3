@@ -14,7 +14,7 @@ export class AuthExceptionFilter implements ExceptionFilter {
   }
 
   public catch(error: unknown, _req: Request, res: Response, next: NextFunction): void {
-    if (! (error instanceof BaseAuthException)) {
+    if (!(error instanceof BaseAuthException)) {
       return next(error);
     }
 
