@@ -6,9 +6,9 @@ export const CreateUserMessages = {
   email: {
     invalidFormat: 'email must be a valid email address'
   },
-  // avatarImagePath: {
-  //   invalidFormat: 'avatarImagePath is required',
-  // }
+  avatarImagePath: {
+    invalidFormat: 'avatarImagePath is required',
+  },
   userType: {
     invalidFormat: 'Must be one of: Default, Pro',
   },
