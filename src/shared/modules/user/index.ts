@@ -9,3 +9,4 @@ export * from './user.controller.js';
 export * from './create-user-request.type.js';
 export * from './login-user-request.type.js';
 export * from './rdo/user.rdo.js';
+export * from './rdo/logged-user.rdo.js';

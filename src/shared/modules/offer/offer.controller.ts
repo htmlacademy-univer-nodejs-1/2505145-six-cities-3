@@ -17,6 +17,7 @@ import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { StatusCodes } from 'http-status-codes';
 import { CommentRdo, CommentService } from '../comment/index.js';
+import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-route.middleware.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -38,7 +39,10 @@ export class OfferController extends BaseController {
       path: '/',
       httpMethod: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
     });
 
     this.addRoute({
@@ -53,6 +57,7 @@ export class OfferController extends BaseController {
       path: '/:offerId',
       httpMethod: HttpMethod.Delete, handler: this.deleteById,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
@@ -61,6 +66,7 @@ export class OfferController extends BaseController {
       path: '/:offerId',
       httpMethod: HttpMethod.Patch, handler: this.updateById,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
@@ -76,13 +82,15 @@ export class OfferController extends BaseController {
     this.addRoute({
       path: '/favorites',
       httpMethod: HttpMethod.Get,
-      handler: this.findByFavorite
+      handler: this.findByFavorite,
+      middlewares: [new PrivateRouteMiddleware()]
     });
     this.addRoute({
       path: '/favorites/:offerId',
       httpMethod: HttpMethod.Post,
       handler: this.addFavoriteById,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
@@ -92,6 +100,7 @@ export class OfferController extends BaseController {
       httpMethod: HttpMethod.Delete,
       handler: this.removeFavoriteById,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
@@ -114,10 +123,10 @@ export class OfferController extends BaseController {
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
+    {body, tokenPayload}: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
     res: Response
   ): Promise<void> {
-    const offer = await this.offerService.create(body);
+    const offer = await this.offerService.create({...body, userId: tokenPayload.id});
     this.created(res, fillDTO(OfferRdo, offer));
   }
 

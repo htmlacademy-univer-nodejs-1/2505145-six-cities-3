@@ -12,16 +12,16 @@ export interface UserEntity extends defaultClasses.Base {
 })
 
 export class UserEntity extends defaultClasses.TimeStamps implements User {
-  @prop({ type: String, required: true, default: ''})
+  @prop({type: String, required: true, default: ''})
   public name: string;
 
-  @prop({ type: String, unique: true, required: true})
+  @prop({type: String, unique: true, required: true})
   public email: string;
 
-  @prop({ type: String, required: false, default: ''})
+  @prop({type: String, required: false, default: ''})
   public avatarImagePath: string;
 
-  @prop({ type: String, enum: UserType, required: false, default: UserType.Default})
+  @prop({type: String, enum: UserType, required: false, default: UserType.Default})
   public userType: UserType;
 
   @prop({type: String, required: true, default: ''})
@@ -42,6 +42,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   public getPassword() {
     return this.password;
+  }
+
+  public verifyPassword(password: string, salt: string) {
+    const hashPassword = createSHA256(password, salt);
+    return hashPassword === this.password;
   }
 }
 
