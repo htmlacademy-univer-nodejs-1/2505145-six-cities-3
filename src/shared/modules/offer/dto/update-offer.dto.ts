@@ -76,8 +76,8 @@ export class UpdateOfferDto {
   public rentPrice?: number;
 
   @IsOptional()
-  @IsArray({ message: CreateOfferValidationMessage.facilities.invalidFormat })
-  @IsEnum(Facilities, {message: CreateOfferValidationMessage.facilities.invalidElementFormat})
+  @IsArray({message: CreateOfferValidationMessage.facilities.invalidFormat})
+  @IsEnum(Facilities, {each: true, message: CreateOfferValidationMessage.facilities.invalidElementFormat})
   public facilities?: Facilities[];
 
   @IsOptional()

@@ -91,14 +91,14 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async calculateTotalRating(offerId: string, newRating: number, newNumberComments: number): Promise<DocumentType<OfferEntity, types.BeAnObject> | null> {
+  public async calculateTotalRating(offerId: string, newRating: number): Promise<DocumentType<OfferEntity, types.BeAnObject> | null> {
     const offer = await this.offerModel.findById(offerId).exec();
 
     if (!offer) {
       return null;
     }
 
-    const totalRating = (offer.rating * (newNumberComments - 1) + newRating) / newNumberComments;
+    const totalRating = Math.round(((offer.rating * offer.numberComments) + newRating) / (offer.numberComments + 1) * 10) / 10;
     return this.offerModel
       .findByIdAndUpdate(offerId, {
         rating: totalRating

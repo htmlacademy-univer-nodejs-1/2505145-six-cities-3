@@ -17,6 +17,7 @@ export class DefaultCommentService implements CommentService {
 
   public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
     const comment = await this.commentModel.create(dto);
+    this.logger.info('New comment created');
     return comment.populate(['userId']);
   }
 
@@ -27,14 +28,6 @@ export class DefaultCommentService implements CommentService {
       .limit(DEFAULT_COMMENT_COUNT)
       .populate(['userId'])
       .exec();
-  }
-
-  public async deleteByOfferId(offerId: string): Promise<number> {
-    const comment = await this.commentModel
-      .deleteMany({offerId})
-      .exec();
-
-    return comment.deletedCount;
   }
 
   public async exists(documentId: string): Promise<boolean> {

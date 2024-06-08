@@ -3,7 +3,7 @@ import { Expose } from 'class-transformer';
 
 export class UserRdo {
   @Expose()
-  public userId: string;
+  public id: string;
 
   @Expose()
   public name: string;

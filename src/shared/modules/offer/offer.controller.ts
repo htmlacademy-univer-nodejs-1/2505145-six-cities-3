@@ -16,7 +16,6 @@ import { ParamOfferId } from './type/param-offerid.type.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { StatusCodes } from 'http-status-codes';
-import { CommentRdo, CommentService } from '../comment/index.js';
 import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-route.middleware.js';
 
 @injectable()
@@ -24,19 +23,18 @@ export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) protected readonly offerService: OfferService,
-    @inject(Component.CommentService) protected readonly commentService: CommentService,
   ) {
     super(logger);
 
     this.logger.info('Register routes for OfferController…');
 
     this.addRoute({
-      path: '/',
+      path: '/offers',
       httpMethod: HttpMethod.Get,
       handler: this.index
     });
     this.addRoute({
-      path: '/',
+      path: '/offers',
       httpMethod: HttpMethod.Post,
       handler: this.create,
       middlewares: [
@@ -46,7 +44,7 @@ export class OfferController extends BaseController {
     });
 
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers/:offerId',
       httpMethod: HttpMethod.Get, handler: this.findById,
       middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
@@ -54,7 +52,7 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers/:offerId',
       httpMethod: HttpMethod.Delete, handler: this.deleteById,
       middlewares: [
         new PrivateRouteMiddleware(),
@@ -63,7 +61,7 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers/:offerId',
       httpMethod: HttpMethod.Patch, handler: this.updateById,
       middlewares: [
         new PrivateRouteMiddleware(),
@@ -80,13 +78,13 @@ export class OfferController extends BaseController {
     });
 
     this.addRoute({
-      path: '/favorites',
+      path: '/favorite',
       httpMethod: HttpMethod.Get,
       handler: this.findByFavorite,
       middlewares: [new PrivateRouteMiddleware()]
     });
     this.addRoute({
-      path: '/favorites/:offerId',
+      path: '/favorite/:offerId/1',
       httpMethod: HttpMethod.Post,
       handler: this.addFavoriteById,
       middlewares: [
@@ -96,21 +94,11 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/favorites/:offerId',
-      httpMethod: HttpMethod.Delete,
+      path: '/favorite/:offerId/0',
+      httpMethod: HttpMethod.Post,
       handler: this.removeFavoriteById,
       middlewares: [
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
-      ]
-    });
-
-    this.addRoute({
-      path: '/:offerId/comments',
-      httpMethod: HttpMethod.Get,
-      handler: this.getComments,
-      middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
@@ -126,6 +114,7 @@ export class OfferController extends BaseController {
     {body, tokenPayload}: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
     res: Response
   ): Promise<void> {
+    this.logger.info(`Offer create token: ${tokenPayload.id}`);
     const offer = await this.offerService.create({...body, userId: tokenPayload.id});
     this.created(res, fillDTO(OfferRdo, offer));
   }
@@ -175,10 +164,5 @@ export class OfferController extends BaseController {
     const {offerId} = params;
     const result = await this.offerService.removeFavoriteById(offerId);
     this.ok(res, fillDTO(OfferRdo, result));
-  }
-
-  public async getComments({params}: Request<ParamOfferId>, res: Response): Promise<void> {
-    const comments = await this.commentService.findByOfferId(params.offerId);
-    this.ok(res, fillDTO(CommentRdo, comments));
   }
 }

@@ -7,7 +7,7 @@ export class ValidateObjectIdMiddleware implements Middleware {
   constructor(private param: string) {
   }
 
-  execute({params}: Request, _res: Response, next: NextFunction): void {
+  public async execute({params}: Request, _res: Response, next: NextFunction): Promise<void> {
     const objectId = params[this.param];
 
     if (Types.ObjectId.isValid(objectId)) {

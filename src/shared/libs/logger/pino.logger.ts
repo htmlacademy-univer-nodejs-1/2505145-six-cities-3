@@ -3,6 +3,7 @@ import { pino, Logger as PinoInstance, transport } from 'pino';
 import { getCurrentModuleDirectoryPath } from '../../helpers/index.js';
 import { resolve } from 'node:path';
 import { injectable } from 'inversify';
+import fs from 'node:fs';
 
 @injectable()
 export class PinoLogger implements Logger {
@@ -11,7 +12,12 @@ export class PinoLogger implements Logger {
   constructor() {
     const modulePath = getCurrentModuleDirectoryPath();
     const logFilePath = 'logs/rest.log';
+    const folderName = resolve(modulePath, '../../../', 'logs');
     const destination = resolve(modulePath, '../../../', logFilePath);
+
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName);
+    }
 
     const multiTransport = transport({
       targets: [

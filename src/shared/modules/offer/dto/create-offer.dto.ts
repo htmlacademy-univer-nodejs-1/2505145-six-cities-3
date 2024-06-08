@@ -27,6 +27,9 @@ export class CreateOfferDto {
   @IsEnum(City, {message: CreateOfferValidationMessage.city.invalidFormat})
   public city: City;
 
+  @MaxLength(256, {message: CreateOfferValidationMessage.previewImagePath.maxLength})
+  public previewImagePath: string;
+
   @IsArray({message: CreateOfferValidationMessage.photosPaths.invalidFormat})
   public photosPaths: string[];
 
@@ -35,11 +38,6 @@ export class CreateOfferDto {
 
   @IsBoolean({message: CreateOfferValidationMessage.isFavorite.invalidFormat})
   public isFavorite: boolean;
-
-  // @IsNumber({},{ message: CreateOfferValidationMessage.rating.invalidFormat })
-  // @Min(1, { message: CreateOfferValidationMessage.rating.min })
-  // @Max(5, { message: CreateOfferValidationMessage.rating.max })
-  public rating: number;
 
   @IsEnum(HousingType, {message: CreateOfferValidationMessage.housingType.invalidFormat})
   public housingType: HousingType;
@@ -60,7 +58,7 @@ export class CreateOfferDto {
   public rentPrice: number;
 
   @IsArray({message: CreateOfferValidationMessage.facilities.invalidFormat})
-  @IsEnum(Facilities, {message: CreateOfferValidationMessage.facilities.invalidElementFormat})
+  @IsEnum(Facilities, {each: true, message: CreateOfferValidationMessage.facilities.invalidElementFormat})
   public facilities: Facilities[];
 
   public userId: string;

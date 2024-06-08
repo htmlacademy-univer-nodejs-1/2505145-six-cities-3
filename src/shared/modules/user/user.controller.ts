@@ -64,6 +64,12 @@ export class UserController extends BaseController {
         new UploadFileMiddleware(this.config.get('UPLOAD_DIRECTORY'), 'avatarImagePath'),
       ]
     });
+
+    this.addRoute({
+      path: '/logout',
+      httpMethod: HttpMethod.Delete,
+      handler: this.logout
+    });
   }
 
   public async create(
@@ -120,5 +126,9 @@ export class UserController extends BaseController {
     const uploadFile = {avatarImagePath: file?.filename};
     await this.userService.updateById(params.userId, uploadFile);
     this.created(res, fillDTO(UploadUserAvatarRdo, {filepath: uploadFile.avatarImagePath}));
+  }
+
+  public async logout(_req: Request, res: Response): Promise<void> {
+    this.ok(res, null);
   }
 }
