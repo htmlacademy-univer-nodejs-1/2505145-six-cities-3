@@ -80,9 +80,9 @@ export class RestApplication {
   }
 
   private async initControllers() {
-    this.server.use('/offers', this.offerController.router);
-    this.server.use('/users', this.userController.router);
-    this.server.use('/comments', this.commentController.router);
+    this.server.use('', this.offerController.router);
+    this.server.use('', this.userController.router);
+    this.server.use('', this.commentController.router);
   }
 
   private async initMiddleware() {

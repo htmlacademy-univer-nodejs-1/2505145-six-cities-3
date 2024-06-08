@@ -1,6 +1,6 @@
 export function getMongoUri(
-  username: string,
-  password: string,
+  _username: string,
+  _password: string,
   host: string,
   port: string,
   databaseName: string

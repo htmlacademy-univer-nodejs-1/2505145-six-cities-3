@@ -74,7 +74,6 @@ export class ImportCommand implements Command {
       photosPaths: offer.photosPaths,
       isPremium: offer.isPremium,
       isFavorite: offer.isFavorite,
-      rating: offer.rating,
       housingType: offer.housingType,
       numberRooms: offer.numberRooms,
       numberGuests: offer.numberGuests,

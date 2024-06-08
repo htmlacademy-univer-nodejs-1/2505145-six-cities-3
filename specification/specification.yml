@@ -370,6 +370,33 @@ paths:
         401:
           description: Неавторизованный пользователь.
 
+  /{userId}/avatar:
+    post:
+      tags:
+        - offers
+      summary: Добавление аватара ползователя
+      description: Сервис предоставляет ресурс для добавления аватара ползователя.
+
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        description: Аватар пользователя
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/avatar"
+
+      responses:
+        200:
+          description: Аватар успешно добавлен.
+        400:
+          description: Некорректный запрос.
+
 components:
   schemas:
     createUser:
@@ -427,6 +454,9 @@ components:
         - name
         - email
         - userType
+
+    avatar:
+      type: object
 
     userToken:
       type: string
